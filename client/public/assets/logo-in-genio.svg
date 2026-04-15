@@ -1,0 +1,21 @@
+﻿<svg width="832" height="247" viewBox="0 0 832 247" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="832" height="247" fill="transparent"/>
+  <g transform="translate(10, 22)">
+    <circle cx="18" cy="56" r="16" fill="#57B2E6"/>
+    <text x="0" y="176" font-family="Manrope, Arial, sans-serif" font-size="152" font-weight="800" fill="#57B2E6">in-</text>
+    <text x="260" y="176" font-family="Manrope, Arial, sans-serif" font-size="152" font-weight="800" fill="#8BD047">Geni</text>
+    <circle cx="584" cy="56" r="10" fill="#57B2E6"/>
+    <g transform="translate(620, 112)">
+      <path d="M0 -40L11 -35L15 -22L28 -18L36 -8L33 6L40 17L34 29L20 30L11 40L-2 35L-15 39L-24 30L-37 28L-41 15L-37 3L-41 -10L-34 -21L-20 -23L-11 -35Z" fill="#57B2E6"/>
+      <circle cx="0" cy="0" r="22" fill="#07111D"/>
+      <line x1="-56" y1="0" x2="-83" y2="0" stroke="#8BD047" stroke-width="12" stroke-linecap="round"/>
+      <line x1="56" y1="0" x2="83" y2="0" stroke="#8BD047" stroke-width="12" stroke-linecap="round"/>
+      <line x1="0" y1="-56" x2="0" y2="-83" stroke="#8BD047" stroke-width="12" stroke-linecap="round"/>
+      <line x1="0" y1="56" x2="0" y2="83" stroke="#8BD047" stroke-width="12" stroke-linecap="round"/>
+      <line x1="40" y1="40" x2="60" y2="60" stroke="#8BD047" stroke-width="12" stroke-linecap="round"/>
+      <line x1="-40" y1="-40" x2="-60" y2="-60" stroke="#8BD047" stroke-width="12" stroke-linecap="round"/>
+      <line x1="-40" y1="40" x2="-60" y2="60" stroke="#8BD047" stroke-width="12" stroke-linecap="round"/>
+      <line x1="40" y1="-40" x2="60" y2="-60" stroke="#8BD047" stroke-width="12" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

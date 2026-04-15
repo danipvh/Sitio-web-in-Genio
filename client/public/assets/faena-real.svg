@@ -1,0 +1,25 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 950" width="1400" height="950">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#93b9d8"/>
+      <stop offset="100%" stop-color="#5f7691"/>
+    </linearGradient>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6b6258"/>
+      <stop offset="100%" stop-color="#3a3f47"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="950" fill="url(#sky)"/>
+  <path d="M0 420 L250 340 L480 390 L700 320 L960 360 L1200 300 L1400 360 L1400 950 L0 950 Z" fill="#6b7b8f" opacity="0.62"/>
+  <path d="M0 510 L220 450 L460 490 L680 440 L940 520 L1220 460 L1400 520 L1400 950 L0 950 Z" fill="#6b635b" opacity="0.82"/>
+  <path d="M0 680 L180 620 L420 700 L640 640 L860 710 L1080 650 L1400 740 L1400 950 L0 950 Z" fill="url(#ground)"/>
+  <rect x="100" y="710" width="1200" height="180" fill="#2f3238"/>
+  <g stroke="#9f8f7f" stroke-width="5" opacity="0.55">
+    <line x1="120" y1="740" x2="1280" y2="880"/>
+    <line x1="210" y1="730" x2="1360" y2="860"/>
+    <line x1="100" y1="810" x2="1220" y2="910"/>
+    <line x1="340" y1="720" x2="1340" y2="830"/>
+  </g>
+  <rect x="0" y="0" width="1400" height="950" fill="#07111d" opacity="0.2"/>
+  <text x="700" y="470" text-anchor="middle" fill="#d9e9f5" font-family="Manrope, Arial, sans-serif" font-size="42" font-weight="700">Inserta aqui la foto real de in-genio (assets/faena-real.jpg)</text>
+</svg>
