@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #213145;
   --bg-soft: #0d1f33;
   --surface: #10273f;
@@ -575,6 +575,43 @@ h2 {
   padding-top: 56px;
 }
 
+.form-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: -15px; /* Pull it slightly into the container if desired, but image shows floating above */
+  z-index: 10;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  background: #f1f7fc;
+  color: #10273f;
+  border: 2px solid transparent;
+  padding: 12px 26px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-btn:hover {
+  transform: translateY(-2px);
+  background: #ffffff;
+}
+
+.tab-btn.active {
+  background: #2764f5;
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(39, 100, 245, 0.4);
+}
+
 .contact-wrap {
   border-radius: 24px;
   border: 1px solid var(--line);
@@ -583,6 +620,7 @@ h2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 26px;
+  margin-top: 24px;
 }
 
 .mail {
@@ -611,6 +649,30 @@ textarea {
   color: var(--text);
   padding: 12px 13px;
   font: inherit;
+  width: 100%;
+}
+
+input[type="file"] {
+  background: #f1f7fc;
+  color: #0b1f33;
+  cursor: pointer;
+  padding: 8px;
+}
+
+input[type="file"]::file-selector-button {
+  background: #e2ebf3;
+  border: 1px solid #c8d9e7;
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #10273f;
+  cursor: pointer;
+  margin-right: 14px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #d4e0ec;
 }
 
 input:focus,

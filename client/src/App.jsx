@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const services = [
   {
@@ -81,8 +81,14 @@ function SmartImage({ candidates, alt }) {
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeWelcome, setActiveWelcome] = useState(0);
+  const [activeFormTab, setActiveFormTab] = useState("comercial"); // "comercial" or "jobs"
+
   const [form, setForm] = useState({ name: "", company: "", email: "", message: "" });
   const [formState, setFormState] = useState({ status: "idle", message: "" });
+
+  const [jobForm, setJobForm] = useState({ name: "", position: "" });
+  const [jobFile, setJobFile] = useState(null);
+  const [jobFormState, setJobFormState] = useState({ status: "idle", message: "" });
 
   const apiBase = useMemo(() => import.meta.env.VITE_API_URL || "", []);
   const totalWelcome = welcomeSlides.length;
@@ -145,6 +151,18 @@ function App() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const onJobInputChange = (e) => {
+    setJobForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const onJobFileChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setJobFile(e.target.files[0]);
+    } else {
+      setJobFile(null);
+    }
+  };
+
   const onSubmit = async (e) => {
     e.preventDefault();
     setFormState({ status: "loading", message: "Enviando solicitud..." });
@@ -163,6 +181,38 @@ function App() {
       setForm({ name: "", company: "", email: "", message: "" });
     } catch (error) {
       setFormState({ status: "error", message: error.message || "Error inesperado." });
+    }
+  };
+
+  const onJobSubmit = async (e) => {
+    e.preventDefault();
+    setJobFormState({ status: "loading", message: "Enviando postulación..." });
+
+    const formData = new FormData();
+    formData.append("name", jobForm.name);
+    formData.append("position", jobForm.position);
+    if (jobFile) {
+      formData.append("cv", jobFile);
+    }
+
+    try {
+      const response = await fetch(`${apiBase}/api/jobs`, {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message || "No se pudo enviar la postulación.");
+
+      setJobFormState({ status: "success", message: data.message || "Postulación enviada correctamente." });
+      setJobForm({ name: "", position: "" });
+      setJobFile(null);
+
+      // Reset file input visually
+      const fileInput = document.getElementById("cv-upload");
+      if (fileInput) fileInput.value = "";
+    } catch (error) {
+      setJobFormState({ status: "error", message: error.message || "Error inesperado." });
     }
   };
 
@@ -348,68 +398,144 @@ function App() {
         </section>
 
         <section className="section contact reveal" id="contacto">
-          <div className="container contact-wrap">
-            <div>
-              <p className="eyebrow">Contacto</p>
-              <h2>Hablemos de tu próximo proyecto 🤝</h2>
-              <p>
-                Escríbenos para coordinar una reunión técnica y evaluar alternativas de ejecución
-                para tu proyecto.
-              </p>
-            </div>
-
-            <form className="contact-form" onSubmit={onSubmit}>
-              <label>
-                Nombre
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Tu nombre"
-                  value={form.name}
-                  onChange={onInputChange}
-                  required
-                />
-              </label>
-              <label>
-                Empresa
-                <input
-                  type="text"
-                  name="company"
-                  placeholder="Nombre de tu empresa"
-                  value={form.company}
-                  onChange={onInputChange}
-                  required
-                />
-              </label>
-              <label>
-                Correo
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="correo@empresa.com"
-                  value={form.email}
-                  onChange={onInputChange}
-                  required
-                />
-              </label>
-              <label>
-                Mensaje
-                <textarea
-                  rows="4"
-                  name="message"
-                  placeholder="Cuéntanos brevemente tu requerimiento"
-                  value={form.message}
-                  onChange={onInputChange}
-                  required
-                />
-              </label>
-              <button className="btn btn-primary" type="submit" disabled={formState.status === "loading"}>
-                {formState.status === "loading" ? "Enviando..." : "Enviar solicitud"}
+          <div className="container">
+            <div className="form-tabs">
+              <button
+                type="button"
+                className={`tab-btn ${activeFormTab === "comercial" ? "active" : ""}`}
+                onClick={() => setActiveFormTab("comercial")}
+              >
+                💼 Contacto Comercial
               </button>
-              {formState.message ? (
-                <p className={`form-message ${formState.status}`}>{formState.message}</p>
-              ) : null}
-            </form>
+              <button
+                type="button"
+                className={`tab-btn ${activeFormTab === "jobs" ? "active" : ""}`}
+                onClick={() => setActiveFormTab("jobs")}
+              >
+                👤 Trabaja con Nosotros
+              </button>
+            </div>
+          </div>
+
+          <div className="container contact-wrap">
+            {activeFormTab === "comercial" ? (
+              <>
+                <div>
+                  <p className="eyebrow">Contacto</p>
+                  <h2>Hablemos de tu próximo proyecto 🤝</h2>
+                  <p>
+                    Escríbenos para coordinar una reunión técnica y evaluar alternativas de ejecución
+                    para tu proyecto.
+                  </p>
+                </div>
+
+                <form className="contact-form" onSubmit={onSubmit}>
+                  <label>
+                    Nombre
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Tu nombre"
+                      value={form.name}
+                      onChange={onInputChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Empresa
+                    <input
+                      type="text"
+                      name="company"
+                      placeholder="Nombre de tu empresa"
+                      value={form.company}
+                      onChange={onInputChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Correo
+                    <input
+                      type="email"
+                      name="email"
+                      placeholder="correo@empresa.com"
+                      value={form.email}
+                      onChange={onInputChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Mensaje
+                    <textarea
+                      rows="4"
+                      name="message"
+                      placeholder="Cuéntanos brevemente tu requerimiento"
+                      value={form.message}
+                      onChange={onInputChange}
+                      required
+                    />
+                  </label>
+                  <button className="btn btn-primary" type="submit" disabled={formState.status === "loading"}>
+                    {formState.status === "loading" ? "Enviando..." : "Enviar solicitud"}
+                  </button>
+                  {formState.message ? (
+                    <p className={`form-message ${formState.status}`}>{formState.message}</p>
+                  ) : null}
+                </form>
+              </>
+            ) : (
+              <>
+                <div>
+                  <p className="eyebrow">Postulación</p>
+                  <h2>Trabaja con Nosotros 👷‍♂️</h2>
+                  <p>
+                    Postula para formar parte de nuestras próximas faenas y proyectos enviando tus datos.
+                  </p>
+                </div>
+
+                <form className="contact-form" onSubmit={onJobSubmit}>
+                  <label>
+                    Nombre Completo
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Tu nombre completo"
+                      value={jobForm.name}
+                      onChange={onJobInputChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Cargo o especialidad
+                    <input
+                      type="text"
+                      name="position"
+                      placeholder="Especialidad a postular"
+                      value={jobForm.position}
+                      onChange={onJobInputChange}
+                      required
+                    />
+                  </label>
+                  <label>
+                    Adjuntar CV (Opcional - Máx. 5MB)
+                    <div className="file-input-wrapper">
+                      <input
+                        type="file"
+                        name="cv"
+                        id="cv-upload"
+                        onChange={onJobFileChange}
+                        accept=".pdf,.doc,.docx"
+                      />
+                    </div>
+                  </label>
+                  <button className="btn btn-primary" type="submit" disabled={jobFormState.status === "loading"}>
+                    {jobFormState.status === "loading" ? "Enviando..." : "Enviar Postulación"}
+                  </button>
+                  {jobFormState.message ? (
+                    <p className={`form-message ${jobFormState.status}`}>{jobFormState.message}</p>
+                  ) : null}
+                </form>
+              </>
+            )}
           </div>
         </section>
       </main>
