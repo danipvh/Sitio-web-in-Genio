@@ -589,16 +589,16 @@ h2 {
   background: #f1f7fc;
   color: #10273f;
   border: 2px solid transparent;
-  padding: 12px 26px;
-  border-radius: 30px;
+  padding: 9px 20px;
+  border-radius: 24px;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.25s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .tab-btn:hover {
