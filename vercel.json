@@ -8,11 +8,6 @@
         "distDir": "client/dist"
       }
     }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+
   ]
 }
